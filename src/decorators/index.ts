@@ -1,3 +1,5 @@
+export { Public } from './public';
+
 export { UseAbility } from './use-ability';
 
 export { CaslSubject } from './casl-subject';
