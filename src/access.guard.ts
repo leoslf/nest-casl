@@ -9,6 +9,7 @@ import { subjectHookFactory } from './factories/subject-hook.factory';
 import { userHookFactory } from './factories/user-hook.factory';
 import { RequestProxy } from './proxies/request.proxy';
 import { ContextProxy } from './proxies/context.proxy';
+import { IS_PUBLIC } from './decorators/public';
 
 @Injectable()
 export class AccessGuard implements CanActivate {
@@ -19,6 +20,14 @@ export class AccessGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+    if (isPublic) {
+      return true;
+    }
+
     const ability = this.reflector.get<AbilityMetadata | undefined>(CASL_META_ABILITY, context.getHandler());
     const request = await ContextProxy.create(context).getRequest();
     const { getUserHook } = CaslConfig.getRootOptions();

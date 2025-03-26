@@ -9,6 +9,7 @@ import { CaslConfig } from './casl.config';
 
 describe('AccessGuard', () => {
   const req = new Object();
+  let publicMetadata: boolean = false;
   let abilityMetadata: unknown = {};
   let accessGuard: AccessGuard;
   let accessService: AccessService;
@@ -19,7 +20,13 @@ describe('AccessGuard', () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         AccessGuard,
-        { provide: Reflector, useValue: { get: vi.fn().mockImplementation(() => abilityMetadata) } },
+        {
+          provide: Reflector,
+          useValue: {
+            get: vi.fn().mockImplementation(() => abilityMetadata),
+            getAllAndOverride: vi.fn().mockImplementation(() => publicMetadata),
+          },
+        },
         { provide: AccessService, useValue: { canActivateAbility: vi.fn() } },
       ],
     }).compile();
@@ -39,5 +46,12 @@ describe('AccessGuard', () => {
     const context = new ExecutionContextHost([req, undefined, { req }]);
     await accessGuard.canActivate(context);
     expect(accessService.canActivateAbility).toBeCalledWith(req, abilityMetadata);
+  });
+
+  it('should return true if the route is public', async () => {
+    publicMetadata = true;
+    const context = new ExecutionContextHost([req, undefined,  { req }]);
+    await accessGuard.canActivate(context);
+    expect(accessService.canActivateAbility).not.toBeCalled();
   });
 });
