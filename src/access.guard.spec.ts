@@ -9,7 +9,7 @@ import { CaslConfig } from './casl.config';
 
 describe('AccessGuard', () => {
   const req = new Object();
-  let publicMetadata: boolean = false;
+  let publicMetadata = false;
   let abilityMetadata: unknown = {};
   let accessGuard: AccessGuard;
   let accessService: AccessService;
