@@ -11,7 +11,7 @@
   "homepage": "https://github.com/getjerry/nest-casl#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/getjerry/nest-casl.git"
+    "url": "git+https://github.com/leoslf/nest-casl.git"
   },
   "keywords": [
     "authorization",
