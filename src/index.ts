@@ -5,7 +5,7 @@ export { AuthorizableUser } from './interfaces/authorizable-user.interface';
 export { AuthorizableRequest } from './interfaces/request.interface';
 export { AuthorizableRequest as Request } from './interfaces/request.interface';
 
-export { Public, CaslConditions, CaslSubject, CaslUser, UseAbility } from './decorators';
+export { IS_PUBLIC, Public, CaslConditions, CaslSubject, CaslUser, UseAbility } from './decorators';
 
 export {
   SubjectBeforeFilterHook,

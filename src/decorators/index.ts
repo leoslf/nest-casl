@@ -1,4 +1,4 @@
-export { Public } from './public';
+export { IS_PUBLIC, Public } from './public';
 
 export { UseAbility } from './use-ability';
 
